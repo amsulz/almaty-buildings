@@ -1,3 +1,4 @@
 .env
 data/photos/
 __pycache__/
+models/
