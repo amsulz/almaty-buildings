@@ -5,6 +5,7 @@ panorama, then point the camera from that panorama at the building centre.
 Photos go to data/photos/ (not on GitHub), info about them to data/photos.csv.
 
 Run: python src/download_photos.py 10   (10 = how many buildings to try)
+     python src/download_photos.py --ids data/brick_candidates.csv   (only these buildings)
 """
 import math
 import os
@@ -48,11 +49,17 @@ def distance(lat1, lon1, lat2, lon2):
 def main():
     if not KEY:
         raise SystemExit("GOOGLE_MAPS_KEY is empty, put it in .env")
-    n = int(sys.argv[1]) if len(sys.argv) > 1 else 10
     os.makedirs(PHOTOS_DIR, exist_ok=True)
+    buildings = pd.read_csv(BUILDINGS_PATH)
 
-    # random_state fixes the sample, so a second run tries the same buildings
-    buildings = pd.read_csv(BUILDINGS_PATH).sample(n=n, random_state=42)
+    if sys.argv[1:2] == ["--ids"]:
+        # only the buildings from a list, e.g. data/brick_candidates.csv
+        ids = pd.read_csv(sys.argv[2]).osm_id
+        buildings = buildings[buildings.osm_id.isin(ids)]
+    else:
+        n = int(sys.argv[1]) if len(sys.argv) > 1 else 10
+        # random_state fixes the sample, so a second run tries the same buildings
+        buildings = buildings.sample(n=n, random_state=42)
     done = pd.read_csv(INFO_PATH) if os.path.exists(INFO_PATH) else pd.DataFrame()
     rows = done.to_dict("records")
     done_ids = set(done.osm_id) if len(done) else set()
