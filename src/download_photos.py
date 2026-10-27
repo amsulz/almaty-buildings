@@ -6,6 +6,7 @@ Photos go to data/photos/ (not on GitHub), info about them to data/photos.csv.
 
 Run: python src/download_photos.py 10   (10 = how many buildings to try)
      python src/download_photos.py --ids data/brick_candidates.csv   (only these buildings)
+     python src/download_photos.py --all   (every building not tried yet, asks before starting)
 """
 import math
 import os
@@ -56,6 +57,15 @@ def main():
         # only the buildings from a list, e.g. data/brick_candidates.csv
         ids = pd.read_csv(sys.argv[2]).osm_id
         buildings = buildings[buildings.osm_id.isin(ids)]
+    elif sys.argv[1:2] == ["--all"]:
+        # the whole city: say how much it is before spending money
+        tried = set(pd.read_csv(INFO_PATH).osm_id) if os.path.exists(INFO_PATH) else set()
+        buildings = buildings[~buildings.osm_id.isin(tried)]
+        share = 0.59  # share of tried buildings that gave a photo so far (1124 of 1900)
+        print(f"{len(buildings)} buildings not tried yet, about {len(buildings) * share:.0f} photos.")
+        print("Metadata is free, only photos are paid. Check the budget in Google Cloud first.")
+        if input("Start? (y/n) ") != "y":
+            return
     else:
         n = int(sys.argv[1]) if len(sys.argv) > 1 else 10
         # random_state fixes the sample, so a second run tries the same buildings
