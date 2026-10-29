@@ -36,7 +36,11 @@ def main():
     df = df.merge(pd.read_csv(os.path.join(ROOT, "data", "buildings.csv")), on="osm_id")
     map_path = os.path.join(ROOT, "results", "map_predictions.html" if pred else "map_labels.html")
 
-    m = folium.Map(location=[df.lat.mean(), df.lon.mean()], zoom_start=12)
+    m = folium.Map(location=[df.lat.mean(), df.lon.mean()], zoom_start=12, tiles=None)
+    # OSM tiles are blocked when the html is opened as a file, Esri works
+    folium.TileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+        attr="Esri, OpenStreetMap contributors", control=False).add_to(m)
     for label, color in COLORS.items():
         if not (df.label == label).any():
             continue
