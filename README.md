@@ -18,7 +18,7 @@ Trees in front of the house, it can't be seen. Bad photo.
 
 ![Facade hides the walls](results/figures/labeling_tile.jpg)
 
-Old house, but the walls are under plaster and decoration. For such houses I used "tile" and checked them later on Krisha.
+Old house, but the walls are under plaster and decoration. For such houses I used "tile", and in training they count as brick.
 
 After labelling I wanted to check how good today's LLMs are at telling the building type. In my test the OpenAI model was right on 90% of photos, and on 93% if we don't count a few small problems with the photos.
 
