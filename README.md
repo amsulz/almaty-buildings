@@ -60,3 +60,18 @@ The model's answers for 911 buildings. Brick (red) is mostly in the old center, 
 ## Data source
 
 Photos are from the Google Street View Static API. The photos are not in this repo, only the code and building coordinates (and 3 screenshots of the labelling window as examples). Buildings are from OpenStreetMap (© OpenStreetMap contributors).
+
+## How to run
+
+Put your Google Maps key in `.env` (see `.env.example`), then:
+
+```
+pip install -r requirements.txt
+python src/download_buildings.py     # buildings from OpenStreetMap
+python src/add_districts.py          # district of every building
+python src/download_photos.py 10     # Street View photos
+python src/label.py                  # label photos by hand (rules in LABELING.md)
+python src/clip_logreg.py            # cross-validation
+python src/predict_city.py           # label every photo
+python src/make_map.py --pred        # map of the city
+```
