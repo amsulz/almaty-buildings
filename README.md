@@ -2,7 +2,7 @@
 
 Most apartment blocks in Almaty were built in the USSR, and the USSR mostly built the same standard types of houses again and again. History showed that not all of these types are safe for the kind of earthquake Almaty can have. The project finds out the type of each building, to see which ones may be at risk.
 
-There are about 9,000 apartment blocks in Almaty: JICA counted about 8,800 around 2008, and [Nazarbayev University (Rashid et al., 2023)](https://www.mdpi.com/2075-5309/13/4/1053) studied 8,171 Soviet-era buildings. I took about 7,000 from OpenStreetMap and downloaded Street View photos for around 1,100. About 830 I labelled by hand and used them for supervised learning.
+There are about 9,000 apartment blocks in Almaty: JICA counted about 8,800 around 2008, and [Nazarbayev University (Rashid et al., 2023)](https://www.mdpi.com/2075-5309/13/4/1053) studied 8,171 Soviet-era buildings. I took about 7,000 from OpenStreetMap and downloaded Street View photos for around 1,100. About 830 I labelled by hand and used them for supervised learning. About 210 of them were bad photos or "other", so 620 were left for training and testing.
 
 While labelling I noticed that houses often don't look like what they really are. Old houses look new after facade repair, and new houses that nobody looks after start to look old. Also I found that brick houses with bare brick almost don't exist anymore. Brick buildings are usually covered with square plates around one metre by one metre, or with other decoration.
 
