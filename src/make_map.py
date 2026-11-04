@@ -48,6 +48,8 @@ def main():
         for row in df[df.label == label].itertuples():
             year = "" if pd.isna(row.year) else f", {row.year}"
             floors = "" if pd.isna(row.levels) else f", {row.levels} floors"
+            # many OSM buildings have no address, don't show "nan nan"
+            address = " ".join(str(x) for x in (row.street, row.number) if not pd.isna(x)) or "no address"
             extra = ""
             if pred:
                 extra = f"<br>model sure: {row.confidence:.0%}"
@@ -56,7 +58,7 @@ def main():
             link = f"https://www.google.com/maps/search/?api=1&query={row.lat},{row.lon}"
             folium.CircleMarker(
                 [row.lat, row.lon], radius=4, color=color, fill=True, fill_opacity=0.8, weight=0,
-                popup=f"{label}{floors}{year}<br>{row.street} {row.number}{extra}<br>"
+                popup=f"{label}{floors}{year}<br>{address}{extra}<br>"
                       f"<a href='{link}' target='_blank'>Google Maps</a>",
             ).add_to(layer)
         layer.add_to(m)
