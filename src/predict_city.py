@@ -43,6 +43,7 @@ def main():
     photos[["osm_id", "pred", "confidence", "hand"]].to_csv(PREDICTIONS_PATH, index=False)
     print(f"{len(photos)} photos, saved to {PREDICTIONS_PATH}")
     print(photos.pred.value_counts().to_string())
+    print(f"mean confidence: {photos.confidence.mean():.0%}")
     unlabelled = photos[photos.hand.isna()]
     print(f"\nnot labelled by hand: {len(unlabelled)}")
     print(unlabelled.pred.value_counts().to_string())
