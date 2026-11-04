@@ -25,8 +25,12 @@ OUT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "buildings.csv"
 def overpass(query):
     for url in OVERPASS_URLS:
         # Overpass refuses requests without a User-Agent
-        r = requests.post(url, data={"data": query},
-                          headers={"User-Agent": "almaty-buildings student project"}, timeout=200)
+        try:
+            r = requests.post(url, data={"data": query},
+                              headers={"User-Agent": "almaty-buildings student project"}, timeout=200)
+        except requests.RequestException as e:  # timeout or no connection -> try the mirror
+            print(f"{url} failed: {e}, trying the next one")
+            continue
         if r.ok:
             return r.json()
         print(f"{url} answered {r.status_code}, trying the next one")
