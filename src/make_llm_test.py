@@ -36,7 +36,7 @@ def main():
     for row in test.itertuples():
         shutil.copy(os.path.join(PHOTOS_DIR, row.photo), os.path.join(OUT_DIR, f"{row.number}.jpg"))
     test[["number", "photo", "district", "label"]].to_csv(KEY_PATH, index=False)
-    print(f"{len(test)} photos copied to llm_test/photos, key in data/llm_test_key.csv")
+    print(f"{len(test)} photos copied to {os.path.abspath(OUT_DIR)}, key in data/llm_test_key.csv")
     print(test.label.value_counts())
 
 
