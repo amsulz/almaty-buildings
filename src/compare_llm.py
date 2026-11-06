@@ -29,6 +29,9 @@ def report(df, title):
 
 
 def main():
+    if len(sys.argv) < 3:
+        print("usage: python src/compare_llm.py <answers.csv> <model name>")
+        sys.exit(1)
     answers_path, name = sys.argv[1], sys.argv[2]
     key = pd.read_csv(KEY_PATH, dtype={"number": str})
     answers = pd.read_csv(answers_path, dtype={"photo": str})
