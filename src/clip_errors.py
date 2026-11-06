@@ -33,7 +33,8 @@ def main():
     dev["confidence"] = proba.max(1).round(3)
 
     print("errors by district (share of photos wrong):")
-    print(dev.groupby("district").apply(lambda d: (d.pred != d.label).mean())
+    dev["wrong"] = dev.pred != dev.label
+    print(dev.groupby("district").wrong.mean()
           .sort_values(ascending=False).round(2).to_string())
     print("\nbrick photos the model called something else, by what:")
     print(dev[(dev.label == "brick") & (dev.pred != "brick")].pred.value_counts().to_string())
