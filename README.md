@@ -50,6 +50,35 @@ I split the photos by district. Districts in Almaty were not built all at once, 
 
 The model's answers for 911 buildings. Brick (red) is mostly in the old center, monolith (green) is mostly on the edges of the city. The interactive map is in `results/map_predictions.html`.
 
+### By district
+
+How many houses of each type are in every district (`src/district_stats.py`). Where I labelled the house by hand I used my label, for the rest the model.
+
+| District | Buildings | Panel | Brick | Monolith |
+|---|---|---|---|---|
+| Medeu | 111 | 35% | 50% | 15% |
+| Bostandyk | 359 | 49% | 36% | 15% |
+| Jetisu | 46 | 24% | 28% | 48% |
+| Almaly | 97 | 57% | 25% | 19% |
+| Auezov | 193 | 68% | 21% | 11% |
+| Turksib | 98 | 35% | 20% | 45% |
+| Alatau | 104 | 4% | 3% | 93% |
+| Nauryzbay | 75 | 3% | 1% | 96% |
+
+Alatau and Nauryzbay are almost only monolith, because they were mostly built after 2000. Most of the brick houses are in Medeu and Bostandyk.
+
+### What the models mix up
+
+Rows are the real type, columns are the answer (`src/confusion.py`, test photos only).
+
+| CLIP | panel | brick | monolith |
+|---|---|---|---|
+| **panel** | 34 | 8 | 2 |
+| **brick** | 6 | 17 | 0 |
+| **monolith** | 3 | 3 | 30 |
+
+Most mistakes are between panel and brick, 14 of 22. Monolith is easier, the model almost never calls it brick.
+
 ## Limitations
 
 - Many buildings that look like panel houses are actually monolith, and the other way round. The district has to be taken into account.
@@ -74,4 +103,6 @@ python src/label.py                  # label photos by hand (rules in LABELING.m
 python src/clip_logreg.py            # cross-validation
 python src/predict_city.py           # label every photo
 python src/make_map.py --pred        # map of the city
+python src/district_stats.py         # types by district
+python src/confusion.py              # what the models mix up
 ```
