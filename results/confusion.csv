@@ -1,0 +1,10 @@
+label,panel,brick,monolith,model
+panel,35,6,3,resnet
+brick,8,14,1,resnet
+monolith,7,3,26,resnet
+panel,34,8,2,clip
+brick,6,17,0,clip
+monolith,3,3,30,clip
+panel,41,3,0,codex
+brick,0,23,0,codex
+monolith,5,1,32,codex
