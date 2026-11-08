@@ -1,9 +1,4 @@
-"""Find the city district (Auezov, Bostandyk, ...) of every building.
-
-We need districts to split the photos into train / val / test by place:
-the model should be tested on districts it has never seen.
-District borders come from OpenStreetMap. Saves data/districts.csv
-"""
+"""District of every building (borders from OSM), saves data/districts.csv"""
 import os
 
 import pandas as pd
@@ -26,8 +21,12 @@ out geom;
 
 def overpass(query):
     for url in OVERPASS_URLS:
-        r = requests.post(url, data={"data": query},
-                          headers={"User-Agent": "almaty-buildings student project"}, timeout=300)
+        try:
+            r = requests.post(url, data={"data": query},
+                              headers={"User-Agent": "almaty-buildings student project"}, timeout=300)
+        except requests.RequestException as e:
+            print(f"{url} failed: {e}, trying the next one")
+            continue
         if r.ok:
             return r.json()
         print(f"{url} answered {r.status_code}, trying the next one")
