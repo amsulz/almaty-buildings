@@ -1,9 +1,4 @@
-"""Download all apartment buildings in Almaty from OpenStreetMap (Overpass API).
-
-No key needed. For every building we keep its id, centre point and the few tags
-that sometimes help (floors, year, wall material, address).
-Saves data/buildings.csv
-"""
+"""Download apartment buildings in Almaty from OpenStreetMap, saves data/buildings.csv"""
 import os
 
 import pandas as pd

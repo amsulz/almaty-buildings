@@ -1,11 +1,5 @@
-"""Fine-tune a ResNet-50 (pretrained on ImageNet) to tell panel / brick / monolith.
-
-Split by district, so the model is tested on parts of the city it has never seen:
-  test  = Almaly + Jetisu (the same 106 photos the other AIs got)
-  val   = Medeu (to choose the best epoch)
-  train = all other districts
-Saves the model to models/resnet50.pt and test answers to results/answers_resnet.csv
-(same format as the Codex answers, so src/compare_llm.py can score it).
+"""Fine-tune ResNet-50 on panel / brick / monolith.
+test = Almaly + Jetisu, val = Medeu, train = the rest.
 """
 import os
 

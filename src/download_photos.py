@@ -1,12 +1,8 @@
-"""Download a Street View photo of each building, camera turned towards it.
+"""Download a Street View photo of every building.
 
-For every building we first ask the free metadata endpoint for the nearest
-panorama, then point the camera from that panorama at the building centre.
-Photos go to data/photos/ (not on GitHub), info about them to data/photos.csv.
-
-Run: python src/download_photos.py 10   (10 = how many buildings to try)
-     python src/download_photos.py --ids data/brick_candidates.csv   (only these buildings)
-     python src/download_photos.py --all   (every building not tried yet, asks before starting)
+  python src/download_photos.py 10                              # 10 random buildings
+  python src/download_photos.py --ids data/brick_candidates.csv # only these
+  python src/download_photos.py --all                           # all not tried yet
 """
 import math
 import os

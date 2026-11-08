@@ -1,11 +1,8 @@
-"""Compare answers of another AI (Codex, Claude, Gemini ...) with my labels on the test photos.
+"""Score another model's answers on the test photos.
 
-Run: python src/compare_llm.py ../llm_test/answers_codex.csv codex
+  python src/compare_llm.py ../llm_test/answers_codex.csv codex
 
-Accuracy is shown twice:
-- "original": against the key made when the test folder was prepared
-- "cleaned": against the current labels.csv, where construction sites and
-  hidden houses were later fixed by the labeling rules (they drop out of the test)
+"original" = old key, "cleaned" = current labels.csv.
 """
 import os
 import sys

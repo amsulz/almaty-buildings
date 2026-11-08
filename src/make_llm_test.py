@@ -1,9 +1,5 @@
-"""Prepare the test photos for labelling by other AI models (Codex, Claude, Gemini).
-
-Test = districts the model never sees in training (Almaly + Jetisu).
-Photos are copied to a folder OUTSIDE the project and renamed 001.jpg, 002.jpg ...
-so the AI can't see the address, the OSM id or my labels.
-The key (which number is which building) stays in data/llm_test_key.csv.
+"""Copy test photos to ../llm_test/photos as 001.jpg, 002.jpg ... for other models.
+Key is in data/llm_test_key.csv
 """
 import os
 import shutil

@@ -1,17 +1,6 @@
-"""Small window for labelling photos by hand.
+"""Window for labelling photos by hand. Keys are in LABELING.md
 
-Shows one photo at a time, you press a key:
-  1 = panel     2 = brick     3 = monolith
-  4 = other / not sure (unique tower, mixed, private house)
-  5 = small tiles on the facade, can't tell what is under them
-      (checked later against Krisha and merged into a real class)
-  0 = bad photo (trees, fence, wrong house, no house)
-  G = open this house in Google Maps (to look around when trees are in the way)
-  Backspace = go back one photo, Esc = quit
-Every answer is saved at once to data/labels.csv, so you can stop any time
-and continue later from the same place.
-
-Run: python src/label.py
+  python src/label.py
 """
 import os
 import webbrowser

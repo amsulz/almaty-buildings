@@ -1,15 +1,8 @@
-"""Which photos CLIP + logreg gets wrong in cross-validation over districts.
-
-Only train + val (the "dev" photos), the test districts are not touched.
-Every photo is predicted by a model that never saw its district, the same way
-as in clip_logreg.py. Saves the mistakes, most confident first, to
-results/clip_cv_errors.csv, so they can be opened in label.py / Google Maps
-and checked: is the model wrong, or my label?
-  python src/clip_errors.py
+"""Photos CLIP gets wrong in cross-validation (train + val only).
+Saved to results/clip_cv_errors.csv to check if my label is wrong.
 """
 import os
 
-import numpy as np
 import pandas as pd
 from sklearn.model_selection import LeaveOneGroupOut, cross_val_predict
 

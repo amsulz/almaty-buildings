@@ -1,11 +1,5 @@
-"""Label every downloaded photo with CLIP + logistic regression.
-
-The model is trained on train + val only (the test districts are never used for
-training). Every photo in data/photos.csv gets a type and a confidence; if the
-model is less than 60% sure, the answer is "unknown" instead of a guess.
-Photos I labelled myself keep my label (column "hand").
-Saves results/predictions.csv for src/make_map.py:
-  python src/predict_city.py
+"""Label every downloaded photo with CLIP + logreg, saves results/predictions.csv
+Below 60% confidence the answer is "unknown".
 """
 import os
 

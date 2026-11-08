@@ -1,14 +1,4 @@
-"""Grad-CAM: where on the photo the ResNet looks when it picks a class.
-
-Takes the last block of ResNet-50 (a 7x7 grid of features), checks how much each
-feature pushes the chosen class up (the gradient), and paints the grid in red
-where it pushes the most. Red on the facade = good, red on trees, cars or sky =
-the model learned something that is not the building.
-
-Only val photos (Medeu), the test districts are not touched. Pictures are saved
-to gradcam/ (not on GitHub, because they contain the Street View photos):
-  python src/gradcam.py
-"""
+"""Grad-CAM for the ResNet on val photos (Medeu). Pictures go to gradcam/"""
 import os
 
 import numpy as np

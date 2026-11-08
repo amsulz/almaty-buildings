@@ -1,10 +1,7 @@
-"""Map of Almaty with every building as a coloured dot.
+"""Map of the buildings.
 
-Two maps:
-  python src/make_map.py          # my hand labels (data/labels.csv) -> results/map_labels.html
-  python src/make_map.py --pred   # model answers (results/predictions.csv) -> results/map_predictions.html
-Click a dot to see the type, floors and year from OSM and a link to Google Maps.
-On the model map the popup also shows how sure the model is and my label, if I have one.
+  python src/make_map.py          # my labels -> results/map_labels.html
+  python src/make_map.py --pred   # model answers -> results/map_predictions.html
 """
 import os
 import sys

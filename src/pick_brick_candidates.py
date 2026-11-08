@@ -1,13 +1,7 @@
-"""Pick buildings that are probably brick, to download more brick photos.
+"""Buildings that are probably brick (2-5 floors, 3 of 5 nearest labelled houses are brick),
+not in the test districts. Saves data/brick_candidates.csv
 
-Brick is the rarest class (93 photos), so we look for buildings without a photo yet that:
-  - have 2-5 floors (almost all brick houses we labelled are 2-5 floors),
-  - are surrounded by brick: among the 5 nearest labelled houses, at least 3 are brick
-    (old houses were built in whole quarters, so neighbours are often the same type),
-  - are NOT in the test districts (Almaly + Jetisu), so the test stays untouched.
-Saves the osm_ids to data/brick_candidates.csv, nearest-to-brick first.
-
-Run: python src/pick_brick_candidates.py 300   (300 = how many to keep)
+  python src/pick_brick_candidates.py 300
 """
 import os
 import sys

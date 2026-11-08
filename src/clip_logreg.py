@@ -1,14 +1,7 @@
-"""CLIP features + logistic regression, instead of fine-tuning a whole network.
+"""CLIP (ViT-L/14) features + logistic regression.
 
-CLIP (ViT-L/14) is not trained here at all: it only turns every photo into 768 numbers.
-On these numbers we train a simple logistic regression, which can't overfit 500 photos
-as easily as ResNet-50 did.
-
-Model choice by cross-validation over districts (train + val): train on all districts
-but one, predict the one left out, repeat for every district. The test districts
-(Almaly + Jetisu) are not touched unless you run with --test, once, at the very end:
-  python src/clip_logreg.py          # cross-validation only
-  python src/clip_logreg.py --test   # final score on test + results/answers_clip.csv
+  python src/clip_logreg.py          # cross-validation by district
+  python src/clip_logreg.py --test   # score on test, saves results/answers_clip.csv
 """
 import os
 import sys
