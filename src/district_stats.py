@@ -1,7 +1,5 @@
-"""How many panel, brick and monolith houses are in every district.
-Uses the model's answers from predict_city.py, but if I labelled the house
-by hand, my label is used. "unknown" answers are skipped.
-  python src/district_stats.py
+"""Share of panel / brick / monolith houses in every district.
+My label if I have one, otherwise the model's answer.
 """
 import os
 
@@ -13,7 +11,10 @@ pred = pd.read_csv(os.path.join(ROOT, "results", "predictions.csv"))
 districts = pd.read_csv(os.path.join(ROOT, "data", "districts.csv"))
 df = pred.merge(districts, on="osm_id")
 
-# OSM has some names in Kazakh
+# bad photos and "other" houses are not counted
+df = df[~df.hand.isin(["bad", "other"])]
+
+# some names in OSM are in Kazakh
 df["district"] = df.district.replace({
     "Bostandıq District": "Bostandyk",
     "Türksib District": "Turksib",
