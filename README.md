@@ -48,24 +48,38 @@ I split the photos by district. Districts in Almaty were not built all at once, 
 
 ![Map of the model's answers](results/figures/map_predictions.png)
 
-The model's answers for 911 buildings. Brick (red) is mostly in the old center, monolith (green) is mostly on the edges of the city. The interactive map is in `results/map_predictions.html`.
+The model's answers for 911 buildings (grey = the model is not sure). Brick (red) is mostly in the old center, monolith (green) is mostly on the edges of the city. The interactive map is in `results/map_predictions.html`.
 
 ### By district
 
-How many houses of each type are in every district (`src/district_stats.py`). Where I labelled the house by hand I used my label, for the rest the model.
+How many houses of each type are in every district (`src/district_stats.py`). Where I labelled the house by hand I used my label, for the rest the model. Bad photos and "other" are not counted.
 
 | District | Buildings | Panel | Brick | Monolith |
 |---|---|---|---|---|
-| Medeu | 111 | 35% | 50% | 15% |
-| Bostandyk | 359 | 49% | 36% | 15% |
-| Jetisu | 46 | 24% | 28% | 48% |
-| Almaly | 97 | 57% | 25% | 19% |
-| Auezov | 193 | 68% | 21% | 11% |
-| Turksib | 98 | 35% | 20% | 45% |
-| Alatau | 104 | 4% | 3% | 93% |
-| Nauryzbay | 75 | 3% | 1% | 96% |
+| Medeu | 95 | 31% | 52% | 18% |
+| Bostandyk | 296 | 51% | 35% | 14% |
+| Almaly | 81 | 56% | 24% | 21% |
+| Jetisu | 39 | 21% | 23% | 56% |
+| Auezov | 160 | 68% | 19% | 13% |
+| Turksib | 62 | 19% | 18% | 63% |
+| Alatau | 92 | 0% | 0% | 100% |
+| Nauryzbay | 66 | 0% | 0% | 100% |
 
-Alatau and Nauryzbay are almost only monolith, because they were mostly built after 2000. Most of the brick houses are in Medeu and Bostandyk.
+Alatau and Nauryzbay are only monolith, because they were mostly built after 2000. Most of the brick houses are in Medeu and Bostandyk.
+
+### By number of floors
+
+Floors are taken from OSM, 723 of 891 buildings have them (`src/floors.py`).
+
+| Floors | Buildings | Panel | Brick | Monolith |
+|---|---|---|---|---|
+| 1-3 | 58 | 28% | 72% | 0% |
+| 4-5 | 426 | 51% | 34% | 14% |
+| 6-9 | 131 | 36% | 1% | 63% |
+| 10-12 | 74 | 5% | 3% | 92% |
+| 13+ | 34 | 6% | 0% | 94% |
+
+Brick is almost only up to 5 floors. Most houses higher than 9 floors are monolith, so the risk of tall panel houses concerns a smaller number of buildings than I expected.
 
 ### What the models mix up
 
@@ -84,7 +98,7 @@ Most mistakes are between panel and brick, 14 of 22. Monolith is easier, the mod
 - Many buildings that look like panel houses are actually monolith, and the other way round. The district has to be taken into account.
 - Some old houses were strongly renovated. This didn't really stop me from telling if a house is monolith or not, but it made it harder to tell the exact type.
 - Brick houses from the 1950s-60s are usually worse than the ones from the 1970s-80s, but adding this to the classes is quite hard.
-- The number of floors is not taken into account. For example, a 2-storey Stalin-era house can be at risk, but it can still be safer than an 11-storey panel house, at least because during an earthquake it takes longer to get down from the 11th floor.
+- The number of floors is not used by the model, it is only counted after (see above). For example, a 2-storey Stalin-era house can be at risk, but it can still be safer than an 11-storey panel house, at least because during an earthquake it takes longer to get down from the 11th floor.
 
 ## Data source
 
@@ -104,5 +118,6 @@ python src/clip_logreg.py            # cross-validation
 python src/predict_city.py           # label every photo
 python src/make_map.py --pred        # map of the city
 python src/district_stats.py         # types by district
+python src/floors.py                 # types by number of floors
 python src/confusion.py              # what the models mix up
 ```
