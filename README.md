@@ -26,7 +26,7 @@ After labelling I wanted to check how good today's LLMs are at telling the build
 
 I took ResNet-50, which was already trained on about a million ordinary photos (ImageNet), and changed its last layer so it gives the three classes I need: panel, brick and monolith. Then I trained it more on my 464 labelled photos. The model gives the answer in percent, so we also see how sure it is. The main plus of the model is that it is fast and runs on my own laptop for free, so it can label the whole city.
 
-Later I also tried CLIP with logistic regression. It was better on test, so the map below is made with CLIP.
+Later I also tried CLIP with logistic regression. In cross-validation by district it got 79%, better than ResNet, so the map below is made with CLIP.
 
 ## How I tested it
 
@@ -45,6 +45,8 @@ I split the photos by district. Districts in Almaty were not built all at once, 
 | ResNet-50 | 72.8% |
 | CLIP | 78.6% |
 | Codex | 93.2% |
+
+The test has only 103 photos, so every number has a wide margin: about 64-81% for ResNet, 70-86% for CLIP and 87-97% for Codex (95% intervals). The difference between ResNet and CLIP is 6 photos and could be luck. A model that always says "panel" would get 43%. Codex got my labelling rules, and my labels follow the same rules, so the test was easier for it.
 
 ![Map of the model's answers](results/figures/map_predictions.png)
 
@@ -99,6 +101,9 @@ Most mistakes are between panel and brick, 14 of 22. Monolith is easier, the mod
 - Some old houses were strongly renovated. This didn't really stop me from telling if a house is monolith or not, but it made it harder to tell the exact type.
 - Brick houses from the 1950s-60s are usually worse than the ones from the 1970s-80s, but adding this to the classes is quite hard.
 - The number of floors is not used by the model, it is only counted after (see above). For example, a 2-storey Stalin-era house can be at risk, but it can still be safer than an 11-storey panel house, at least because during an earthquake it takes longer to get down from the 11th floor.
+- All labels are mine and nobody checked them. In the "brick" class only 24 photos show real brick. The other 92 are houses under facing tiles, where I assumed brick. I still need to check a sample against real estate listings.
+- The confidence of the model is too high. On the test photos with 60-80% confidence it was right only 4 times out of 11.
+- The map has 911 buildings, about 13% of the apartment blocks in OpenStreetMap, and only those with a Street View photo close enough. So the tables by district are a first picture, not statistics for the city.
 
 ## Data source
 
