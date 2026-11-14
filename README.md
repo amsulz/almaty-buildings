@@ -102,7 +102,7 @@ Most mistakes are between panel and brick, 14 of 22. Monolith is easier, the mod
 - Brick houses from the 1950s-60s are usually worse than the ones from the 1970s-80s, but adding this to the classes is quite hard.
 - The number of floors is not used by the model, it is only counted after (see above). For example, a 2-storey Stalin-era house can be at risk, but it can still be safer than an 11-storey panel house, at least because during an earthquake it takes longer to get down from the 11th floor.
 - All labels are mine and nobody checked them. In the "brick" class only 24 photos show real brick. The other 92 are houses under facing tiles, where I assumed brick. I still need to check a sample against real estate listings.
-- The confidence of the model is too high. On the test photos with 60-80% confidence it was right only 4 times out of 11.
+- The confidence of the model is too high. On the test photos with 60-80% confidence it was right only 4 times out of 11. The reason is C = 1000 in the logistic regression. With C = 30 the accuracy in cross-validation is the same (79%), and the confidence is honest: photos with 80-95% confidence are right in 90% of cases (`src/calibration.py`). The map is still made with C = 1000, I need to redo it.
 - The map has 911 buildings, about 13% of the apartment blocks in OpenStreetMap, and only those with a Street View photo close enough. So the tables by district are a first picture, not statistics for the city.
 
 ## Data source
@@ -125,4 +125,5 @@ python src/make_map.py --pred        # map of the city
 python src/district_stats.py         # types by district
 python src/floors.py                 # types by number of floors
 python src/confusion.py              # what the models mix up
+python src/calibration.py            # can the confidence be trusted
 ```
