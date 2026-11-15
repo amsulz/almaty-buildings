@@ -50,7 +50,7 @@ The test has only 103 photos, so every number has a wide margin: about 64-81% fo
 
 ![Map of the model's answers](results/figures/map_predictions.png)
 
-The model's answers for 911 buildings (grey = the model is not sure). Brick (red) is mostly in the old center, monolith (green) is mostly on the edges of the city. The interactive map is in `results/map_predictions.html`.
+The model's answers for 911 buildings. Grey = the model is not sure (below 60%), there are 135 such buildings. Brick (red) is mostly in the old center, monolith (green) is mostly on the edges of the city. The interactive map is in `results/map_predictions.html`.
 
 ### By district
 
@@ -58,12 +58,12 @@ How many houses of each type are in every district (`src/district_stats.py`). Wh
 
 | District | Buildings | Panel | Brick | Monolith |
 |---|---|---|---|---|
-| Medeu | 95 | 31% | 52% | 18% |
-| Bostandyk | 296 | 51% | 35% | 14% |
-| Almaly | 81 | 56% | 24% | 21% |
-| Jetisu | 39 | 21% | 23% | 56% |
-| Auezov | 160 | 68% | 19% | 13% |
-| Turksib | 62 | 19% | 18% | 63% |
+| Medeu | 89 | 30% | 51% | 19% |
+| Bostandyk | 263 | 48% | 36% | 16% |
+| Almaly | 80 | 56% | 23% | 21% |
+| Jetisu | 36 | 19% | 19% | 61% |
+| Turksib | 60 | 17% | 18% | 65% |
+| Auezov | 156 | 69% | 17% | 14% |
 | Alatau | 92 | 0% | 0% | 100% |
 | Nauryzbay | 66 | 0% | 0% | 100% |
 
@@ -71,13 +71,13 @@ Alatau and Nauryzbay are only monolith, because they were mostly built after 200
 
 ### By number of floors
 
-Floors are taken from OSM, 723 of 891 buildings have them (`src/floors.py`).
+Floors are taken from OSM, 677 of 842 buildings have them (`src/floors.py`).
 
 | Floors | Buildings | Panel | Brick | Monolith |
 |---|---|---|---|---|
-| 1-3 | 58 | 28% | 72% | 0% |
-| 4-5 | 426 | 51% | 34% | 14% |
-| 6-9 | 131 | 36% | 1% | 63% |
+| 1-3 | 49 | 18% | 82% | 0% |
+| 4-5 | 390 | 50% | 34% | 16% |
+| 6-9 | 130 | 35% | 1% | 64% |
 | 10-12 | 74 | 5% | 3% | 92% |
 | 13+ | 34 | 6% | 0% | 94% |
 
@@ -102,7 +102,7 @@ Most mistakes are between panel and brick, 14 of 22. Monolith is easier, the mod
 - Brick houses from the 1950s-60s are usually worse than the ones from the 1970s-80s, but adding this to the classes is quite hard.
 - The number of floors is not used by the model, it is only counted after (see above). For example, a 2-storey Stalin-era house can be at risk, but it can still be safer than an 11-storey panel house, at least because during an earthquake it takes longer to get down from the 11th floor.
 - All labels are mine and nobody checked them. In the "brick" class only 24 photos show real brick. The other 92 are houses under facing tiles, where I assumed brick. I still need to check a sample against real estate listings.
-- The confidence of the model is too high. On the test photos with 60-80% confidence it was right only 4 times out of 11. The reason is C = 1000 in the logistic regression. With C = 30 the accuracy in cross-validation is the same (79%), and the confidence is honest: photos with 80-95% confidence are right in 90% of cases (`src/calibration.py`). The map is still made with C = 1000, I need to redo it.
+- With C = 1000 in the logistic regression the confidence of the model was too high. On the test photos with 60-80% confidence it was right only 4 times out of 11. With C = 30 the accuracy in cross-validation is the same (79%), and the confidence is honest: photos with 80-95% confidence are right in 90% of cases (`src/calibration.py`). So I made the map and the tables again with C = 30. Now the model says "not sure" for 135 buildings, before it was 26. The test numbers in Results are still for C = 1000.
 - The map has 911 buildings, about 13% of the apartment blocks in OpenStreetMap, and only those with a Street View photo close enough. So the tables by district are a first picture, not statistics for the city.
 
 ## Data source
