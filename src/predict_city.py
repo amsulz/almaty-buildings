@@ -9,7 +9,7 @@ from clip_logreg import clip_features, make_model
 from train import ROOT, load_split
 
 PREDICTIONS_PATH = os.path.join(ROOT, "results", "predictions.csv")
-C = 1000            # best C from clip_logreg.py
+C = 30              # accuracy like with 1000, but the confidence is honest (calibration.py)
 MIN_CONFIDENCE = 0.6
 
 
